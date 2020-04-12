@@ -25,10 +25,9 @@ pipeline{
         }
         stage('Docker Deploy Dev'){
             steps{
-                sshagent(['tomcat-dev']) {
+                sshagent(['docker-host-dev']) {
                     script{
                         def dkrRun = "docker run -d -p 8080:8080 --name mywebapp madhudocker3110/mywebapp:${dockerTag()}"
-                        sh script: "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 docker rm -f mywebapp",
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 ${dkrRun}"
                     }
                 }
