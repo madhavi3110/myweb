@@ -27,7 +27,7 @@ pipeline{
             steps{
                 sshagent(['docker-host-dev']) {
                     script{
-                        def dkrRun = "docker run -d -p 8080:8080 --name madhutest3 madhudocker3110/madhutest3:${dockerTag()}"
+                        def dkrRun = "docker run -d -p 8090:8080 --name madhutest3 madhudocker3110/madhutest3:${dockerTag()}"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 ${dkrRun}"
                     }
                 }
