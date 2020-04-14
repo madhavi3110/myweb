@@ -11,7 +11,7 @@ pipeline{
         }
         stage('Docker Build'){
             steps{
-                sh "docker build . -t madhudocker3110/madhutest1:${dockerTag()}"
+                sh "docker build . -t madhudocker3110/madhutest2:${dockerTag()}"
             }
         }
         stage('DockerHub Push Image'){
@@ -20,14 +20,14 @@ pipeline{
                     sh "docker login -u madhudocker3110 -p ${dockerPwd}"
                 }
                 
-                sh "docker push madhudocker3110/madhutest1:${dockerTag()}"
+                sh "docker push madhudocker3110/madhutest2:${dockerTag()}"
             }
         }
         stage('Docker Deploy Dev'){
             steps{
                 sshagent(['docker-host-dev']) {
                     script{
-                        def dkrRun = "docker run -d -p 8080:8080 --name madhutest1 madhudocker3110/madhutest1:${dockerTag()}"
+                        def dkrRun = "docker run -d -p 8080:8080 --name madhutest2 madhudocker3110/madhutest2:${dockerTag()}"
 			sh script: "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 docker rm -f mywebapp",
 			 returnStatus: true
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 ${dkrRun}"
