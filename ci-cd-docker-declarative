@@ -29,7 +29,7 @@ pipeline{
                     script{
                         def dkrRun = "docker run -d -p 8080:8080 --name madhutest2 madhudocker3110/madhutest2:${dockerTag()}"
 			sh script: "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 docker rm -f mywebapp",
-			 returnStatus: true
+
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.6.38 ${dkrRun}"
                     }
                 }
